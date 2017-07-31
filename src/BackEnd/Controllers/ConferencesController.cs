@@ -71,7 +71,7 @@ namespace BackEnd.Controllers
                                             .Include(c => c.Sessions)
                                                 .ThenInclude(cs => cs.SessionSpeakers)
                                                     .ThenInclude(css => css.Speaker)
-                                            .SingleOrDefaultAsync(c => c.Slug == slug);
+                                            .FirstOrDefaultAsync(c => c.Slug == slug);
 
             if (conference == null)
             {

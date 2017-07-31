@@ -24,8 +24,8 @@ namespace BackEnd.Infrastructure
                                          StartTime = s.StartTime,
                                          EndTime = s.EndTime,                                        
                                      })
-                                       .OrderBy(s => s.StartTime)
-                                       .ToList(),
+                                    .OrderBy(s => s.StartTime)
+                                    .ToList(),
                 Speakers = conference.Sessions?
                                      .SelectMany(s => s.SessionSpeakers)
                                      .Select(ss => new ConferenceDTO.Speaker
@@ -43,8 +43,8 @@ namespace BackEnd.Infrastructure
                                         Name = t.Name,
                                         Slug = t.Slug
                                     })
-                                       .OrderBy(s => s.Name)
-                                       .ToList()
+                                    .OrderBy(s => s.Name)
+                                    .ToList()
             };
 
         public static SessionResponse MapSessionResponse(this Session session) =>
@@ -141,6 +141,36 @@ namespace BackEnd.Infrastructure
                             Slug = ca.Conference.Slug
                         })
                     .ToList(),
+            };
+
+        public static TrackResponse MapTrackResponse(this Track track) =>
+            new TrackResponse
+            {
+                TrackID = track.TrackID,
+                Name = track.Name,
+                Slug = track.Slug,
+                ConferenceID = track.ConferenceID,
+                Conference = track.Conference == null ? default(ConferenceDTO.Conference) :
+                    new ConferenceDTO.Conference
+                    {
+                        ID = track.ConferenceID,
+                        Name = track.Conference.Name,
+                        Slug = track.Conference.Slug,
+                        StartDate = track.Conference.StartDate,
+                        EndDate = track.Conference.EndDate
+                    },
+                Sessions = track.Sessions?
+                    .Select(s => new ConferenceDTO.Session
+                    {
+                        ID = s.ID,
+                        Title = s.Title,
+                        Slug = s.Slug,
+                        Abstract = s.Abstract,
+                        StartTime = s.StartTime,
+                        EndTime = s.EndTime,
+                    })
+                .OrderBy(s => s.StartTime)
+                .ToList()
             };
     }
 }
