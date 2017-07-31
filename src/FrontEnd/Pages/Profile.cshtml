@@ -1,0 +1,45 @@
+﻿@page "{name}"
+@using ConferenceDTO
+@model ProfileModel
+
+<h2>Welcome @User.Identity.Name</h2>
+
+<div class="form-group">
+    <label asp-for="Attendee.FirstName" class="control-label"></label>
+    <div class="row">
+        <div class="col-md-6">
+            <p>@Model.Attendee.FirstName</p>
+        </div>
+    </div>
+    <span asp-validation-for="Attendee.FirstName" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Attendee.LastName" class="control-label"></label>
+    <div class="row">
+        <div class="col-md-6">
+            <p>@Model.Attendee.LastName</p>
+        </div>
+    </div>
+    <span asp-validation-for="Attendee.LastName" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Attendee.EmailAddress" class="control-label"></label>
+    <div class="row">
+        <div class="col-md-6">
+            <p>@Model.Attendee.EmailAddress</p>
+        </div>
+    </div>
+</div>
+
+@if(Model.Attendee.Avatar != null)
+{
+    <div class="form-group">
+        <label class="control-label">AvatarImage</label>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="~/Avatar" alt="avatar" width="200" height="200" />
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,32 @@
+﻿@page
+@model ConferencesModel
+@{
+}
+
+
+<div class="conference-list">
+    <h1>Conferences</h1>
+
+    @foreach (var conference in Model.Conferences)
+    {
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="panel-title"><a asp-page="Agenda" asp-route-slug="@conference.Slug">@conference.Name</a></h3>
+                <p></p>
+                <ul>
+                    @foreach(var session in conference.Sessions.Take(5))
+                    {
+                        <li><a asp-page="Session" asp-route-slug="@session.Slug">@session.Title </a></li>
+                    }
+                    @if(conference.Sessions.Count() > 5)
+                    {
+                        <li><a asp-page="Agenda" asp-route-name="@conference.Name">...</a></li>
+                    }
+                </ul>
+                <em><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> @conference.StartDate?.ToLocalTime().Date.ToShortDateString() - @conference.EndDate?.ToLocalTime().Date.ToShortDateString()</em>
+            </div>
+        </div>
+
+        }
+</div>

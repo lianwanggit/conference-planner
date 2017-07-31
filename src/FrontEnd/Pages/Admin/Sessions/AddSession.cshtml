@@ -1,0 +1,68 @@
+﻿@page
+@model AddSessionModel
+
+<ol class="breadcrumb">
+    <li><a asp-page="/Admin/AdminPortal">Admin</a></li>
+    <li><a asp-page="/Admin/Sessions/ListSessions">Sessions</a></li>
+    <li class="active">Add</li>
+</ol>
+
+<h3>Edit Session</h3>
+@if (Model.ShowMessage)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @Model.Message
+    </div>
+}
+
+<form method="post" class="form-horizontal">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Conference</label>
+        <div class="col-md-10">
+            <input class="form-control" value="@Model.ConferenceName" readonly="readonly">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Session.Title" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Session.Title" class="form-control" />
+            <span asp-validation-for="Session.Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Session.Abstract" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <textarea asp-for="Session.Abstract" class="form-control"></textarea>
+            <span asp-validation-for="Session.Abstract" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Session.StartTime" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Session.StartTime" class="form-control" />
+            <span asp-validation-for="Session.StartTime" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Session.EndTime" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Session.EndTime" class="form-control" />
+            <span asp-validation-for="Session.EndTime" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+            <a class="btn btn-default" asp-page="ListSessions">Sessions</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}

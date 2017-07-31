@@ -1,0 +1,46 @@
+﻿@page
+@model ListConferencesModel
+
+
+<ol class="breadcrumb">
+    <li><a asp-page="/Admin/AdminPortal">Admin</a></li>
+    <li class="active">Conferences</li>
+</ol>
+
+<h1>Conferences</h1>
+<p class="text-right"><a class="btn btn-default" asp-page="AddConference">Add</a></p>
+
+<form method="post">
+    <table class="table table-hover table-responsive admin-list-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th class="hidden-xs">Start Date</th>
+                <th class="hidden-xs">End Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var conference in Model.Conferences)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="id" value="@conference.ID" />
+                        @conference.Name
+                    </td>
+                    <td class="hidden-xs date-column">@conference.StartDate?.ToLocalTime().Date.ToString("d")</td>
+                    <td class="hidden-xs date-column">@conference.EndDate?.ToLocalTime().Date.ToString("d")</td>
+                    <td>
+                        <a class="btn btn-default" asp-page="EditConference" asp-route-id="@conference.ID">Edit</a>
+                        @if(conference.Sessions.Count != 0)
+                        {
+                            <button class="btn btn-danger" disabled="disabled">Delete</button>
+                        } else {
+                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                        }                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

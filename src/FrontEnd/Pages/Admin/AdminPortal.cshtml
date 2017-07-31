@@ -1,0 +1,25 @@
+﻿@page
+@model AdminPortalModel
+@{
+}
+
+
+<div>
+    <h1>Admin</h1>
+
+    <div class="row">
+        @foreach(var vm in Model.AdminPortalViewModels)
+        {
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a authz-policy="Admin" asp-page="@vm.PageRoute">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>@vm.PageName <span class="badge">@vm.EntityCount</span> </h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>

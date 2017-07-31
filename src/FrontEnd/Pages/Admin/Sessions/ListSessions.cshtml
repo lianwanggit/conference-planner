@@ -1,0 +1,49 @@
+﻿@page
+@model ListSessionsModel
+
+<ol class="breadcrumb">
+    <li><a asp-page="/Admin/AdminPortal">Admin</a></li>
+    <li class="active">Sessions</li>
+</ol>
+
+<h1>Sessions</h1>
+<p class="text-right"><a class="btn btn-default" asp-page="AddSession">Add</a></p>
+
+<form method="post">
+    <div class="session-list">
+        @foreach(var conference in Model.Conferences)
+        {
+            var inputId = $"input{conference.ID}";
+
+                <div class="collapsible-list">
+                    <input id="@inputId" type="checkbox" />
+                    <label for="@inputId">
+                        <span><a class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>@conference.Name</span>
+                        <span><a class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>@conference.Name</span>
+                    </label>
+                    <div class="list">
+                        <ul>
+                            @foreach(var session in conference.Sessions)
+                        {
+                                <li>
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <span>@session.Title</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a class="btn btn-default" asp-page="EditSession" asp-route-id="@session.ID">Edit</a>
+                                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </div>
+
+
+                                </li>
+                        }
+                        </ul>
+                    </div>
+                </div>
+        }
+    </div>   
+</form>
+
+

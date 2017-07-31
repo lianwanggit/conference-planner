@@ -1,0 +1,68 @@
+﻿@page
+@model LoginModel
+@using Microsoft.AspNetCore.Http;
+
+<h1>Login</h1>
+<hr />
+<div class="text-danger">
+    <p></p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <form method="post" class="form-horizontal">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="LoginViewModel.Email" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="LoginViewModel.Email" class="form-control" />
+                        <span asp-validation-for="LoginViewModel.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LoginViewModel.Password" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="LoginViewModel.Password" class="form-control" />
+                        <span asp-validation-for="LoginViewModel.Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <label asp-for="LoginViewModel.RememberMe">
+                                <input asp-for="LoginViewModel.RememberMe" />
+                                @Html.DisplayNameFor(m => m.LoginViewModel.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-default" asp-page-handler="Login">Log in</button>
+                    </div>
+                </div>
+
+                <ul class="list-unstyled">
+                    <li><a asp-page="/Account/Register">Register as a new user?</a></li>
+                    <li><a asp-page="/Account/ForgotPassword">Forgot your password?</a></li>
+                </ul>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section>
+            <h4>Use another service to log in.</h4>
+            <hr />
+            <form method="post">
+                @foreach (var scheme in Model.AuthSchemes)
+                {
+                    <button class="btn btn-default" type="submit" name="scheme" value="@scheme.Name" asp-page-handler="ExternalLogin">@scheme.DisplayName</button>
+                }
+            </form>
+        </section>
+    </div>
+
+</div>

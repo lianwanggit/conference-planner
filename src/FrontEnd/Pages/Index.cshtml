@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="conference-list">
+    <h1>Upcoming conferences</h1>
+
+    <div class="row">
+        @foreach (var conference in Model.UpcommingConferences)
+        {
+            <div class="col-md-3">
+                <div class="panel panel-default conference">
+                    <div class="panel-body">
+                        <h3 class="panel-title"><a asp-page="/Agenda" asp-route-slug="@conference.Slug">@conference.Name</a></h3>
+                        <p>Sessions: @conference.Sessions.Count</p>
+                        <em><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  @conference.StartDate?.ToLocalTime().Date.ToShortDateString() - @conference.EndDate?.ToLocalTime().Date.ToShortDateString()</em>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

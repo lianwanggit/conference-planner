@@ -1,0 +1,121 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+
+
+/* buttons and links extension to use brackets: [ click me ] */
+.btn-bracketed::before {
+    display: inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+
+.btn-bracketed::after {
+    display: inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+.conference-list .conference {
+    height: 120px;
+}
+
+.conference-list .glyphicon {
+    color: #777;
+}
+
+.admin-list-table tr > td:last-of-type {
+    text-align: right;
+    width: 160px;
+}
+
+.agenda .session {
+    height: 160px;
+}
+
+.speaker-list .speaker {
+    height: 140px;
+}
+
+.nav-avatar {
+    padding: 0 !important;
+}
+
+.nav-avatar .avatar {
+    margin-top: 5px;
+}
+
+h3 .badge {
+    margin-bottom: 4px;
+}
+
+.collapsible-list {
+    border-top: 1px solid #ddd;
+    padding: 8px;
+    line-height: 1.42857143;
+}
+
+.session-list > div:last-of-type {
+    border-bottom: 1px solid #ddd;
+}
+
+.collapsible-list > label span {
+    font-size: 16px;
+}
+
+.collapsible-list > label span .btn {
+    font-size: 12px;
+    padding: 1px 2px 0px 3px;
+    margin-right: 8px;
+}
+
+.collapsible-list input:checked + label span .btn {
+    padding: 1px 3px 0px 2px;
+}
+    
+.collapsible-list > label span .glyphicon {
+    font-size: 12px;
+    color: #777;
+}
+
+.collapsible-list .list > ul {
+    list-style-type: none;
+    -webkit-padding-start: 20px;
+}
+
+.collapsible-list .list > ul > li {
+    border-top: 1px solid #ddd;
+    padding: 8px;
+}
+
+.collapsible-list input,                                                /* HIDE CHECKBOX */
+.collapsible-list .list,                                                /* HIDE LIST */
+.collapsible-list input + label > span:nth-of-type(2),                  /* HIDE "Collapse" */
+.collapsible-list input:checked + label > span:nth-of-type(1) {         /* HIDE "Expand" (IF CHECKED) */
+    display: none;
+}
+
+.collapsible-list input:checked + label > span:nth-of-type(2) {
+    display: inline-block;                                              /* SHOW "Collapse" (IF CHECKED) */
+}
+
+.collapsible-list input:checked ~ .list {
+    display: block;                                                     /* SHOW LIST (IF CHECKED) */
+}
+
+@media (min-width: 768px) {
+    .admin-list-table tr > .date-column {
+        width: 15%;
+    }
+}
