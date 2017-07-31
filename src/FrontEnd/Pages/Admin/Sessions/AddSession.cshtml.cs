@@ -25,6 +25,8 @@ namespace FrontEnd.Pages.Admin.Sessions
 
         public List<SelectListItem> Conferences { get; set; }
 
+        public Conference Conference { get; set; }
+
         [TempData]
         public string Message { get; set; }
 
@@ -37,32 +39,13 @@ namespace FrontEnd.Pages.Admin.Sessions
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var conference = await _apiClient.GetConferenceAsync(Session.ConferenceID);
-            if (conference == null)
-            {
-                await DisplayValidationError("Session.ConferenceID", "The selected conference is not available");
-            }
-            if (Session.StartTime.HasValue 
-                && conference.StartDate.HasValue
-                && Session.StartTime < conference.StartDate)
-            {
-                await DisplayValidationError("Session.StartTime", "The Session StartTime must be later than Conference StartDate");
-            }
-            if (conference.EndDate.HasValue
-                && Session.EndTime.HasValue
-                && Session.EndTime > conference.EndDate)
-            {
-                await DisplayValidationError("Session.EndTime", "The Session EndTime must be earlier than Conference EndDate");
-            }
-            if (Session.StartTime.HasValue
-                && Session.EndTime.HasValue
-                && Session.StartTime >= Session.EndTime)
-            {
-                await DisplayValidationError("Session.EndTime", "The Session EndTime must be later than StartTime");
-            }
+           Conference = await _apiClient.GetConferenceAsync(Session.ConferenceID);
+            ValidateSessionTime();
 
             if (!ModelState.IsValid)
             {
+                await GetConferences();
+
                 return Page();
             }
 
@@ -81,10 +64,43 @@ namespace FrontEnd.Pages.Admin.Sessions
                 .ToList();
         }
 
-        private async Task DisplayValidationError(string key, string message)
+        private void ValidateSessionTime()
         {
-            await GetConferences();
-            ModelState.AddModelError(key, message);
+            if (Conference == null)
+            {
+                ModelState.AddModelError("Session.ConferenceID", "The selected conference is not available");
+            }
+            if (Session.StartTime.HasValue
+                && Conference.StartDate.HasValue
+                && Session.StartTime < Conference.StartDate)
+            {
+                ModelState.AddModelError("Session.StartTime", "The Session StartTime must be later than Conference StartDate");
+            }
+            if (Session.StartTime.HasValue
+                && Conference.EndDate.HasValue
+                && Session.StartTime > Conference.EndDate)
+            {
+                ModelState.AddModelError("Session.StartTime", "The Session StartTime must be earlier than Conference EndDate");
+            }
+            if (Conference.EndDate.HasValue
+                && Session.EndTime.HasValue
+                && Session.EndTime > Conference.EndDate)
+            {
+                ModelState.AddModelError("Session.EndTime", "The Session EndTime must be earlier than Conference EndDate");
+            }
+            if (Conference.StartDate.HasValue
+                && Session.EndTime.HasValue
+                && Session.EndTime < Conference.StartDate)
+            {
+                ModelState.AddModelError("Session.EndTime", "The Session EndTime must be later than Conference StartDate");
+            }
+            if (Session.StartTime.HasValue
+                && Session.EndTime.HasValue
+                && Session.StartTime >= Session.EndTime)
+            {
+                ModelState.AddModelError("Session.EndTime", "The Session EndTime must be later than StartTime");
+            }
         }
+
     }
 }
