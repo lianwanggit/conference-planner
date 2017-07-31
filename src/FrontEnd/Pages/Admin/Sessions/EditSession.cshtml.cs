@@ -19,7 +19,7 @@ namespace FrontEnd.Pages.Admin
         [BindProperty]
         public Session Session { get; set; }
 
-        public string ConferenceName { get; set; }
+        public Conference Conference { get; set; }
 
         [TempData]
         public string Message { get; set; }
@@ -28,24 +28,36 @@ namespace FrontEnd.Pages.Admin
 
         public async Task OnGetAsync(int id)
         {
-            var session = await _apiClient.GetSessionAsync(id);
-            Session = new Session
-            {
-                ID = session.ID,
-                ConferenceID = session.ConferenceID,
-                TrackId = session.TrackId,
-                Title = session.Title,
-                Slug = session.Slug,
-                Abstract = session.Abstract,
-                StartTime = session.StartTime,
-                EndTime = session.EndTime
-            };
-
-            ConferenceName = session.Conference.Name;
+            await GetSession(id);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            await GetSession(Session.ID);
+
+            if (Conference == null)
+            {
+                DisplayValidationError("Session.ConferenceID", "The selected conference is not available");
+            }
+            if (Session.StartTime.HasValue
+                && Conference.StartDate.HasValue
+                && Session.StartTime < Conference.StartDate)
+            {
+                DisplayValidationError("Session.StartTime", "The Session StartTime must be later than Conference StartDate");
+            }
+            if (Conference.EndDate.HasValue
+                && Session.EndTime.HasValue
+                && Session.EndTime > Conference.EndDate)
+            {
+                DisplayValidationError("Session.EndTime", "The Session EndTime must be earlier than Conference EndDate");
+            }
+            if (Session.StartTime.HasValue
+                && Session.EndTime.HasValue
+                && Session.StartTime >= Session.EndTime)
+            {
+                DisplayValidationError("Session.EndTime", "The Session EndTime must be later than StartTime");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -72,10 +84,25 @@ namespace FrontEnd.Pages.Admin
             return RedirectToPage("/Index");
         }
 
-        private async Task DisplayValidationError(string key, string message)
+        private async Task GetSession(int id)
         {
-            //await GetConferences();
-            ModelState.AddModelError(key, message);
+            var session = await _apiClient.GetSessionAsync(id);
+            Session = new Session
+            {
+                ID = session.ID,
+                ConferenceID = session.ConferenceID,
+                TrackId = session.TrackId,
+                Title = session.Title,
+                Slug = session.Slug,
+                Abstract = session.Abstract,
+                StartTime = session.StartTime,
+                EndTime = session.EndTime
+            };
+
+            Conference = session.Conference;
         }
+
+        private void DisplayValidationError(string key, string message) => ModelState.AddModelError(key, message);
+
     }
 }
