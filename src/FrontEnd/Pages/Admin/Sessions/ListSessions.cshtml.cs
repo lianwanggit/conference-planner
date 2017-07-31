@@ -28,7 +28,9 @@ namespace FrontEnd.Pages.Admin.Sessions
 
             Conferences.ForEach(c =>
             {
-                c.Sessions = c.Sessions.OrderBy(cs => cs.StartTime).ToList();
+                c.Sessions = c.Sessions.OrderBy(cs => cs.Title)
+                                .ThenBy(cs => cs.StartTime)
+                                .ToList();
             });
 
             return Page();

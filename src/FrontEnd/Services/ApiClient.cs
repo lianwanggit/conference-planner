@@ -157,6 +157,15 @@ namespace FrontEnd.Services
             return await response.Content.ReadAsJsonAsync<List<SessionResponse>>();
         }
 
+        public async Task AddSessionAsync(Session session)
+        {
+            _logger.Information("Http request - AddSessionAsync. session: {session}", session);
+
+            var response = await _httpClient.PostJsonAsync($"/api/sessions/", session);
+
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task PutSessionAsync(Session session)
         {
             _logger.Information("Http request - PutSessionAsync. session: {session}", session);

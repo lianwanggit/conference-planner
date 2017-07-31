@@ -35,6 +35,7 @@ namespace FrontEnd.Pages.Admin
                 ConferenceID = session.ConferenceID,
                 TrackId = session.TrackId,
                 Title = session.Title,
+                Slug = session.Slug,
                 Abstract = session.Abstract,
                 StartTime = session.StartTime,
                 EndTime = session.EndTime

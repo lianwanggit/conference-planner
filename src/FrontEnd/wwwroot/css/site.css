@@ -70,6 +70,10 @@ h3 .badge {
     border-bottom: 1px solid #ddd;
 }
 
+.session-list small {
+    color: #777;
+}
+
 .collapsible-list > label span {
     font-size: 16px;
 }

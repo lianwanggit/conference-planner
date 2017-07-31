@@ -74,19 +74,20 @@ namespace BackEnd.Infrastructure
                 TrackId = session.TrackId,
                 Track = new ConferenceDTO.Track
                 {
-                    TrackID = session?.TrackId ?? 0,
+                    TrackID = session.TrackId ?? 0,
                     Name = session.Track?.Name,
                     Slug = session.Track?.Slug
                 },
                 ConferenceID = session.ConferenceID,
-                Conference = new ConferenceDTO.Conference
-                {
-                    ID = session.ConferenceID,
-                    Name = session.Conference.Name,
-                    Slug = session.Conference.Slug,
-                    StartDate = session.Conference.StartDate,
-                    EndDate = session.Conference.EndDate
-                },
+                Conference = session.Conference == null ? default(ConferenceDTO.Conference) :
+                    new ConferenceDTO.Conference
+                    {
+                        ID = session.ConferenceID,
+                        Name = session.Conference.Name,
+                        Slug = session.Conference.Slug,
+                        StartDate = session.Conference.StartDate,
+                        EndDate = session.Conference.EndDate
+                    },
                 Abstract = session.Abstract
             };
 

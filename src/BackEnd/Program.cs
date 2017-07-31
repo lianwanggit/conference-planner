@@ -15,7 +15,7 @@ namespace BackEnd
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseKestrel()
- //               .UseUrls("http://localhost:6000")
+                //.UseUrls("http://localhost:6000")
                 .UseIISIntegration()
                 .Build();
     }

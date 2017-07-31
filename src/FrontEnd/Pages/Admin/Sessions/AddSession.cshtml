@@ -7,7 +7,7 @@
     <li class="active">Add</li>
 </ol>
 
-<h3>Edit Session</h3>
+<h3>Add Session</h3>
 @if (Model.ShowMessage)
 {
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,12 +17,13 @@
 }
 
 <form method="post" class="form-horizontal">
+    <input asp-for="Session.Slug" type="hidden" value="placeholder" />
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">Conference</label>
         <div class="col-md-10">
-            <input class="form-control" value="@Model.ConferenceName" readonly="readonly">
+            <select asp-for="Session.ConferenceID" asp-items="Model.Conferences" class="form-control"></select> 
         </div>
     </div>
 
@@ -57,7 +58,6 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-primary">Save</button>
-            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
             <a class="btn btn-default" asp-page="ListSessions">Sessions</a>
         </div>
     </div>

@@ -113,6 +113,7 @@ namespace BackEnd.Controllers
             var session = new Session
             {
                 Title = input.Title,
+                Slug = input.Title.ToSlug(),
                 ConferenceID = input.ConferenceID,
                 StartTime = input.StartTime,
                 EndTime = input.EndTime,
@@ -145,6 +146,7 @@ namespace BackEnd.Controllers
 
             session.ID = input.ID;
             session.Title = input.Title;
+            session.Slug = input.Title.ToSlug();
             session.Abstract = input.Abstract;
             session.StartTime = input.StartTime;
             session.EndTime = input.EndTime;

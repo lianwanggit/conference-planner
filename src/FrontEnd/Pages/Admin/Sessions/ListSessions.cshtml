@@ -28,7 +28,7 @@
                                 <li>
                                     <div class="clearfix">
                                         <div class="pull-left">
-                                            <span>@session.Title</span>
+                                            <span>@session.Title</span> <small class="hidden-xs">@session.StartTime?.ToString("dd-MM-yyyy hh:mm - ")@session.EndTime?.ToString("dd-MM-yyyy hh:mm") </small>
                                         </div>
                                         <div class="pull-right">
                                             <a class="btn btn-default" asp-page="EditSession" asp-route-id="@session.ID">Edit</a>
