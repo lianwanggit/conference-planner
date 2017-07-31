@@ -36,6 +36,7 @@
     <Folder Include="Pages\Admin\Attendees\" />
     <Folder Include="Pages\Admin\Speakers\" />
     <Folder Include="Pages\Admin\Tracks\" />
+    <Folder Include="Validation\" />
   </ItemGroup>
 
 </Project>

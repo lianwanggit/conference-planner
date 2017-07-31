@@ -71,5 +71,11 @@ namespace FrontEnd.Pages.Admin
 
             return RedirectToPage("/Index");
         }
+
+        private async Task DisplayValidationError(string key, string message)
+        {
+            //await GetConferences();
+            ModelState.AddModelError(key, message);
+        }
     }
 }
