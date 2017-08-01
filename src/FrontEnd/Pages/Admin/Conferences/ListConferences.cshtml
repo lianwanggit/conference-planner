@@ -32,7 +32,7 @@
                     <td class="hidden-xs date-column">@conference.EndDate?.ToLocalTime().Date.ToString("d")</td>
                     <td>
                         <a class="btn btn-default" asp-page="EditConference" asp-route-id="@conference.ID">Edit</a>
-                        @if(conference.Sessions.Count != 0)
+                        @if(conference.Sessions.Count != 0 || conference.Tracks.Count != 0)
                         {
                             <button class="btn btn-danger" disabled="disabled">Delete</button>
                         } else {

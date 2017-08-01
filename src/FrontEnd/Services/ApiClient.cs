@@ -327,6 +327,85 @@ namespace FrontEnd.Services
 
         #endregion
 
+        #region Track
+
+        public async Task<List<TrackResponse>> GetTracksAsync()
+        {
+            _logger.Information("Http request - GetTracksAsync.");
+
+            var response = await _httpClient.GetAsync("/api/tracks");
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsJsonAsync<List<TrackResponse>>();
+        }
+
+        public async Task<TrackResponse> GetTrackAsync(int id)
+        {
+            _logger.Information("Http request - GetTrackAsync. id: {id}", id);
+
+            var response = await _httpClient.GetAsync($"/api/tracks/{id}");
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsJsonAsync<TrackResponse>();
+        }
+
+        public async Task<TrackResponse> GetTrackAsync(string slug)
+        {
+            _logger.Information("Http request - GetTrackAsync. slug: {slug}", slug);
+
+            var response = await _httpClient.GetAsync($"/api/tracks/GetTrackBySlug/{slug}");
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsJsonAsync<TrackResponse>();
+        }
+
+        public async Task AddTrackAsync(Track track)
+        {
+            _logger.Information("Http request - AddTrackAsync. track: {track}", track);
+
+            var response = await _httpClient.PostJsonAsync($"/api/tracks", track);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task PutTrackAsync(Track track)
+        {
+            _logger.Information("Http request - PutTrackAsync. track: {track}", track);
+
+            var response = await _httpClient.PutJsonAsync($"/api/tracks/{track.TrackID}", track);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteTrackAsync(int id)
+        {
+            _logger.Information("Http request - DeleteTrackAsync. id: {id}", id);
+
+            var response = await _httpClient.DeleteAsync($"/api/tracks/{id}");
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return;
+            }
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        #endregion
+
         public async Task<List<SearchResult>> SearchAsync(string query)
         {
             _logger.Information("Http request - SearchAsync. query: {query}", query);

@@ -36,6 +36,13 @@ namespace FrontEnd.Services
         Task AddSessionToAttendeeAsync(string name, int sessionId);
         Task RemoveSessionFromAttendeeAsync(string name, int sessionId);
 
+        Task<List<TrackResponse>> GetTracksAsync();
+        Task<TrackResponse> GetTrackAsync(int id);
+        Task<TrackResponse> GetTrackAsync(string slug);
+        Task AddTrackAsync(Track track);
+        Task PutTrackAsync(Track track);
+        Task DeleteTrackAsync(int id);
+
         Task<File> GetFileAsync(int id);
     }
 }
