@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5A0DF1CE-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd.Test", "test\BackEnd.Test\BackEnd.Test.csproj", "{C857AB95-DD9A-43B9-A690-5FC81046BBA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd.Test", "test\FrontEnd.Test\FrontEnd.Test.csproj", "{A4477653-5C6B-4FCD-9C93-BC2CE373D712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEnd.Test", "test\FrontEnd.Test\FrontEnd.Test.csproj", "{A4477653-5C6B-4FCD-9C93-BC2CE373D712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

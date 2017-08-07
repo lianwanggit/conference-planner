@@ -28,7 +28,7 @@ namespace FrontEnd.Pages.Admin
 
             AdminPortalViewModels = new[] {
                 new AdminPortalViewModel { PageName = "Conferences", EntityCount = conferences.Count, PageRoute = "./Conferences/ListConferences" },
-                new AdminPortalViewModel { PageName = "Tracks", EntityCount = tracks.Count, PageRoute = "./Tracks/ListTrack" },
+                new AdminPortalViewModel { PageName = "Tracks", EntityCount = tracks.Count, PageRoute = "./Tracks/ListTracks" },
                 new AdminPortalViewModel { PageName = "Tags", EntityCount = 0, PageRoute = "./Tags/ListTag" },
                 new AdminPortalViewModel { PageName = "Sessions", EntityCount = sessionCount, PageRoute = "./Sessions/ListSessions" },
                 new AdminPortalViewModel { PageName = "Speakers", EntityCount = speakers.Count, PageRoute = "./Speakers/ListSpeaker" },

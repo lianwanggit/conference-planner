@@ -1,0 +1,41 @@
+﻿@page
+@model ListTracksModel
+
+<ol class="breadcrumb">
+    <li><a asp-page="/Admin/AdminPortal">Admin</a></li>
+    <li class="active">Tracks</li>
+</ol>
+
+<h1>Tracks</h1>
+<p class="text-right"><a class="btn btn-default" asp-page="AddTrack">Add</a></p>
+
+<form method="post">
+    <table class="table table-hover table-responsive admin-list-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var track in Model.Tracks)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="id" value="@track.TrackID" />
+                        @track.Name
+                    </td>
+                    <td>
+                        <a class="btn btn-default" asp-page="EditTrack" asp-route-id="@track.TrackID">Edit</a>
+                        @if(track.Sessions.Count != 0)
+                        {
+                            <button class="btn btn-danger" disabled="disabled">Delete</button>
+                        } else {
+                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
