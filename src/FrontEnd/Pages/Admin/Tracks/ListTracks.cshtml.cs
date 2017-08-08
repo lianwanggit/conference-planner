@@ -19,12 +19,19 @@ namespace FrontEnd.Pages.Admin.Tracks
 
         }
 
-        public List<TrackResponse> Tracks { get; set; }
+        public List<ConferenceResponse> Conferences { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var tracks = await _apiClient.GetTracksAsync();
-            Tracks = tracks.OrderBy(c => c.Name).ToList();
+            var conferences = await _apiClient.GetConferencesAsync();
+            Conferences = conferences.OrderByDescending(c => c.StartDate).ToList();
+
+            Conferences.ForEach(c =>
+            {
+                c.Sessions = c.Sessions.OrderBy(cs => cs.Title)
+                                .ThenBy(cs => cs.StartTime)
+                                .ToList();
+            });
 
             return Page();
         }

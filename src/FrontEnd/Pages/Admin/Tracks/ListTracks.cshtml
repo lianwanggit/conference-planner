@@ -1,6 +1,14 @@
 ﻿@page
 @model ListTracksModel
 
+@functions {
+    public bool CanDelete(int trackId)
+    {
+        var sessions = Model.Conferences.SelectMany(c => c.Sessions);
+        return sessions.All(s => s.TrackId != trackId);
+    }
+}
+
 <ol class="breadcrumb">
     <li><a asp-page="/Admin/AdminPortal">Admin</a></li>
     <li class="active">Tracks</li>
@@ -10,32 +18,45 @@
 <p class="text-right"><a class="btn btn-default" asp-page="AddTrack">Add</a></p>
 
 <form method="post">
-    <table class="table table-hover table-responsive admin-list-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var track in Model.Tracks)
-            {
-                <tr>
-                    <td>
-                        <input type="hidden" name="id" value="@track.TrackID" />
-                        @track.Name
-                    </td>
-                    <td>
-                        <a class="btn btn-default" asp-page="EditTrack" asp-route-id="@track.TrackID">Edit</a>
-                        @if(track.Sessions.Count != 0)
+    <div class="track-list">
+        @foreach (var conference in Model.Conferences)
+        {
+            var inputId = $"input{conference.ID}";
+
+            <div class="collapsible-list">
+                <input id="@inputId" type="checkbox" />
+                <label for="@inputId">
+                    <span><a class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>@conference.Name</span>
+                    <span><a class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>@conference.Name</span>
+                </label>
+                <div class="list">
+                    <ul>
+                        @foreach (var track in conference.Tracks)
                         {
-                            <button class="btn btn-danger" disabled="disabled">Delete</button>
-                        } else {
-                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                            <li>
+                                <div class="clearfix">
+                                    <div class="pull-left">
+                                        <span>@track.Name</span>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-default" asp-page="EditTrack" asp-route-id="@track.TrackID">Edit</a>
+                                        @if (CanDelete(track.TrackID))
+                                        {
+                                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" disabled="disabled" class="btn btn-danger">Delete</button>
+                                        }                                        
+                                    </div>
+                                </div>
+
+
+                            </li>
                         }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
 </form>

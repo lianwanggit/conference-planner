@@ -22,7 +22,8 @@ namespace BackEnd.Infrastructure
                                          Slug = s.Slug,
                                          Abstract = s.Abstract,
                                          StartTime = s.StartTime,
-                                         EndTime = s.EndTime,                                        
+                                         EndTime = s.EndTime, 
+                                         TrackId = s.TrackId
                                      })
                                     .OrderBy(s => s.StartTime)
                                     .ToList(),

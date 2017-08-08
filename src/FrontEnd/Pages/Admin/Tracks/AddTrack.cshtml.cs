@@ -38,7 +38,7 @@ namespace FrontEnd.Pages.Admin.Tracks
         public async Task<IActionResult> OnPostAsync()
         {
             var tracks = await _apiClient.GetTracksAsync();
-            if (tracks.Any(t => t.Name == Track.Name))
+            if (tracks.Any(t => t.Name == Track.Name && t.ConferenceID == Track.ConferenceID))
             {
                 ModelState.AddModelError("Track.Name", $"The track name {Track.Name} exists already");
             }
